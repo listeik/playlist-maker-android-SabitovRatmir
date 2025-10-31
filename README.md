@@ -3,6 +3,14 @@
 
 ### Список изменений
 
+#### Спринт 5 (v5.0)
+- Реализована Clean Architecture с разделением на Data, Domain, UI слои
+- Создан эмулятор сервера (Storage) с данными треков и функцией поиска
+- Реализован Data слой: TrackDto, TracksSearchRequest, TracksSearchResponse
+- Добавлен RetrofitNetworkClient для эмуляции сетевых запросов
+- Создан Domain слой с интерфейсами NetworkClient и TracksRepository
+- Реализован TracksRepositoryImpl с конвертацией данных и поиском треков
+
 #### Спринт 4 (v4.0)
 - Реализован экран поиска с поисковой строкой и логикой очистки
 - Реализован экран настроек с функционалом шеринга, email и соглашения
