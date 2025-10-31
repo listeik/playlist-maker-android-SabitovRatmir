@@ -3,6 +3,12 @@
 
 ### Список изменений
 
+#### Спринт 6 (v6.0)
+- Реализован SearchViewModel с StateFlow для управления состояниями поиска
+- Создан sealed class SearchState с состояниями: Initial, Searching, Success, Fail
+- Реализован SearchScreen composable с полем поиска и обработкой состояний
+- Добавлен TrackListItem composable для отображения элементов треков
+
 #### Спринт 5 (v5.0)
 - Реализована Clean Architecture с разделением на Data, Domain, UI слои
 - Создан эмулятор сервера (Storage) с данными треков и функцией поиска

@@ -6,6 +6,13 @@
     <string name="favorites">Избранное</string>
     <string name="settings">Настройки</string>
 
+    <string name="search_screen_text">Поиск</string>
+    <string name="search_hint">Введите строку для поиска</string>
+    <string name="clear_icon_description">Очистить</string>
+    <string name="back_icon_description">Назад</string>
+    <string name="nothing_found">Ничего не найдено</string>
+    <string name="search_error_title">Ошибка поиска</string>
+
     <string name="dark_theme_title">Тёмная тема</string>
     <string name="share_app">Поделиться приложением</string>
     <string name="write_to_developers">Написать в поддержку</string>
