@@ -1,4 +1,4 @@
-package com.example.playlist_maker_android_sabitovratmir
+package com.example.playlist_maker_android_sabitovratmir.ui.activity
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

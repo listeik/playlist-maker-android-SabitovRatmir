@@ -1,4 +1,4 @@
-package com.example.playlist_maker_android_sabitovratmir
+package com.example.playlist_maker_android_sabitovratmir.ui.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.playlist_maker_android_sabitovratmir.R
 import com.example.playlist_maker_android_sabitovratmir.ui.theme.PlaylistmakerandroidSabitovRatmirTheme
 
 class MainActivity : ComponentActivity() {

@@ -1,4 +1,4 @@
-package com.example.playlist_maker_android_sabitovratmir// Navigation.kt
+package com.example.playlist_maker_android_sabitovratmir.ui.activity// Navigation.kt
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
