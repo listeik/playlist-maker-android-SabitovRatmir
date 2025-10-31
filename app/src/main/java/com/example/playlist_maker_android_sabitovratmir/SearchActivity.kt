@@ -1,8 +1,5 @@
 package com.example.playlist_maker_android_sabitovratmir
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,8 +19,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,15 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-class SearchActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            SearchScreen(onBackClick = { finish() })
-        }
-    }
-}
-
 @Composable
 fun SearchScreen(onBackClick: () -> Unit = {}) {
     val context = LocalContext.current
@@ -59,7 +45,6 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        // Заголовок с кнопкой назад
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -67,7 +52,6 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
                 .background(Color.White),
             contentAlignment = Alignment.CenterStart
         ) {
-            // Кнопка назад (стрелка влево)
             IconButton(
                 onClick = onBackClick,
                 modifier = Modifier
@@ -90,7 +74,6 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
             )
         }
 
-        // Поисковая строка
         SearchTextField(
             searchText = searchText,
             onSearchTextChange = { searchText = it }
@@ -119,7 +102,7 @@ fun SearchTextField(
             Text(
                 text = "Поиск",
                 color = Color(0xFFAEAFB4),
-                fontSize = 18.sp // Увеличенный шрифт
+                fontSize = 18.sp
             )
         },
         leadingIcon = {
@@ -134,7 +117,7 @@ fun SearchTextField(
             if (searchText.isNotEmpty()) {
                 IconButton(
                     onClick = {
-                        onSearchTextChange("") // Очищаем поле при нажатии на крестик
+                        onSearchTextChange("")
                     }
                 ) {
                     Icon(
@@ -160,7 +143,7 @@ fun SearchTextField(
             unfocusedTrailingIconColor = Color(0xFFAEAFB4)
         ),
         textStyle = TextStyle(
-            fontSize = 16.sp, // Увеличиваем размер шрифта вводимого текста
+            fontSize = 16.sp,
             color = Color(0xFF1A1B22)
         ),
         singleLine = true

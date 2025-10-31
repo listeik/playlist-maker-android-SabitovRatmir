@@ -1,8 +1,6 @@
 package com.example.playlist_maker_android_sabitovratmir
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -30,14 +28,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.content.ContextCompat.startActivity
 import com.example.playlist_maker_android_sabitovratmir.ui.theme.PlaylistmakerandroidSabitovRatmirTheme
 
 class MainActivity : ComponentActivity() {
@@ -45,14 +41,15 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PlaylistmakerandroidSabitovRatmirTheme {
-                MainScreen()
+                PlaylistHost()
             }
         }
     }
 }
 
 @Composable
-fun MainScreen() {
+fun MainScreen(onSearchClick: () -> Unit = {},
+               onSettingsClick: () -> Unit = {}) {
     val context = LocalContext.current
 
     Column(
@@ -95,10 +92,7 @@ fun MainScreen() {
                 MenuCard(
                     iconRes = R.drawable.search,
                     text = stringResource(R.string.search),
-                    onClick = {
-                        val intent = Intent(context, SearchActivity::class.java)
-                        context.startActivity(intent)
-                    }
+                    onClick = onSearchClick
                 )
 
 
@@ -121,10 +115,7 @@ fun MainScreen() {
                 MenuCard(
                     iconRes = R.drawable.settings,
                     text = stringResource(R.string.settings),
-                    onClick = {
-                        val intent = Intent(context, SettingsActivity::class.java)
-                        context.startActivity(intent)
-                    }
+                    onClick = onSettingsClick
                 )
             }
         }

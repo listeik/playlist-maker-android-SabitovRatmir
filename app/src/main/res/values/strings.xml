@@ -5,4 +5,15 @@
     <string name="playlist">Плейлисты</string>
     <string name="favorites">Избранное</string>
     <string name="settings">Настройки</string>
+
+    <string name="dark_theme_title">Тёмная тема</string>
+    <string name="share_app">Поделиться приложением</string>
+    <string name="write_to_developers">Написать в поддержку</string>
+    <string name="user_agreement">Пользовательское соглашение</string>
+
+    <string name="share_app_text">Попробуй крутое приложение Playlist Maker!</string>
+    <string name="developer_email">sabitoffratmir@yandex.ru</string>
+    <string name="email_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="email_body">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="user_agreement_url">https://practicum.yandex.ru/</string>
 </resources>
