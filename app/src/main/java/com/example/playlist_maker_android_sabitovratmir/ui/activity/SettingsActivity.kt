@@ -33,6 +33,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.example.playlist_maker_android_sabitovratmir.R
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.SwitchThumbDisabled
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.SwitchThumbEnabled
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.SwitchTrackDisabled
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.SwitchTrackEnabled
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.TextBlack
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.TextGray
 
 @Composable
 fun SettingsScreen(onBackClick: () -> Unit = {}) {
@@ -61,14 +67,14 @@ fun SettingsScreen(onBackClick: () -> Unit = {}) {
             ) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                    contentDescription = "Назад",
-                    tint = Color(0xFF1A1B22)
+                    contentDescription = stringResource(R.string.back_icon_description),
+                    tint = TextBlack
                 )
             }
 
             Text(
                 text = stringResource(R.string.settings),
-                color = Color(0xFF1A1B22),
+                color = TextBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.align(Alignment.CenterStart).padding(start = 66.dp)
@@ -98,7 +104,7 @@ fun SettingsScreen(onBackClick: () -> Unit = {}) {
                         Text(
                             text = stringResource(R.string.dark_theme_title),
                             fontSize = 16.sp,
-                            color = Color(0xFF1A1B22)
+                            color = TextBlack
                         )
                     }
 
@@ -154,13 +160,13 @@ fun SettingsSection(
                 Text(
                     text = title,
                     fontSize = 16.sp,
-                    color = Color(0xFF1A1B22)
+                    color = TextBlack
                 )
             }
             Icon(
                 painter = painterResource(id = iconRes),
                 contentDescription = null,
-                tint = Color(0xFFAEAFB4)
+                tint = TextGray
             )
         }
     }
@@ -211,12 +217,12 @@ fun CustomSwitch(
     )
 
     val trackColor by animateColorAsState(
-        targetValue = if (checked) Color(0xFF3772E7).copy(alpha = 0.48f) else Color(0xFFE6E8EB),
+        targetValue = if (checked) SwitchTrackEnabled else SwitchTrackDisabled,
         animationSpec = tween(durationMillis = 200)
     )
 
     val thumbColor by animateColorAsState(
-        targetValue = if (checked) Color(0xFF3772E7) else Color(0xFFAEAFB4),
+        targetValue = if (checked) SwitchThumbEnabled else SwitchThumbDisabled,
         animationSpec = tween(durationMillis = 200)
     )
 

@@ -48,7 +48,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.example.playlist_maker_android_sabitovratmir.R
-import com.example.playlist_maker_android_sabitovratmir.data.network.Track
+import com.example.playlist_maker_android_sabitovratmir.domain.Track
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.SurfaceGray
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.TextBlack
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.TextGray
 import com.example.playlist_maker_android_sabitovratmir.ui.view_model.SearchState
 import com.example.playlist_maker_android_sabitovratmir.ui.view_model.SearchViewModel
 import com.example.playlist_maker_android_sabitovratmir.ui.view_model.TrackListItem
@@ -82,13 +85,13 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                     contentDescription = stringResource(R.string.back_icon_description),
-                    tint = Color(0xFF1A1B22)
+                    tint = TextBlack
                 )
             }
 
             Text(
-                text = stringResource(R.string.search_screen_text),
-                color = Color(0xFF1A1B22),
+                text = stringResource(R.string.search),
+                color = TextBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.align(Alignment.CenterStart).padding(start = 66.dp)
@@ -99,9 +102,15 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
             searchText = searchText,
             onSearchTextChange = {
                 searchText = it
-                if (it.isNotEmpty()) {
-                    viewModel.search(it)
+            },
+            onSearchClick = {
+                if (searchText.isNotEmpty()) {
+                    viewModel.search(searchText)
                 }
+            },
+            onClearClick = {
+                searchText = ""
+                viewModel.clearSearch()
             }
         )
 
@@ -116,7 +125,7 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
                     ) {
                         Text(
                             text = stringResource(R.string.search_hint),
-                            color = Color(0xFFAEAFB4),
+                            color = TextGray,
                             fontSize = 16.sp
                         )
                     }
@@ -129,7 +138,7 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        color = Color(0xFF1A1B22)
+                        color = TextBlack
                     )
                 }
             }
@@ -143,7 +152,7 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
                     ) {
                         Text(
                             text = stringResource(R.string.nothing_found),
-                            color = Color(0xFFAEAFB4),
+                            color = TextGray,
                             fontSize = 16.sp
                         )
                     }
@@ -155,7 +164,6 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
                     ) {
                         items(tracks.size) { index ->
                             TrackListItem(track = tracks[index])
-                            HorizontalDivider(thickness = 0.5.dp)
                         }
                     }
                 }
@@ -172,14 +180,14 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
                     ) {
                         Text(
                             text = stringResource(R.string.search_error_title),
-                            color = Color(0xFF1A1B22),
+                            color = TextBlack,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
                             text = error,
-                            color = Color(0xFFAEAFB4),
+                            color = TextGray,
                             fontSize = 14.sp,
                             textAlign = TextAlign.Center
                         )
@@ -196,7 +204,9 @@ fun SearchScreen(onBackClick: () -> Unit = {}) {
 @Composable
 fun SearchTextField(
     searchText: String,
-    onSearchTextChange: (String) -> Unit
+    onSearchTextChange: (String) -> Unit,
+    onSearchClick: () -> Unit,
+    onClearClick: () -> Unit
 ) {
     OutlinedTextField(
         value = searchText,
@@ -209,50 +219,52 @@ fun SearchTextField(
         placeholder = {
             Text(
                 text = stringResource(R.string.search_screen_text),
-                color = Color(0xFFAEAFB4),
+                color = TextGray,
                 fontSize = 18.sp
             )
         },
         leadingIcon = {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = stringResource(R.string.search_screen_text),
-                modifier = Modifier.size(24.dp),
-                tint = Color(0xFFAEAFB4)
-            )
+            IconButton(
+                onClick = onSearchClick,
+                modifier = Modifier.size(24.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = stringResource(R.string.search_screen_text),
+                    tint = TextGray
+                )
+            }
         },
         trailingIcon = {
             if (searchText.isNotEmpty()) {
                 IconButton(
-                    onClick = {
-                        onSearchTextChange("")
-                    }
+                    onClick = onClearClick
                 ) {
                     Icon(
                         imageVector = Icons.Default.Clear,
                         contentDescription = stringResource(R.string.clear_icon_description),
                         modifier = Modifier.size(24.dp),
-                        tint = Color(0xFFAEAFB4)
+                        tint = TextGray
                     )
                 }
             }
         },
         colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = Color(0xFFE6E8EB),
-            unfocusedBorderColor = Color(0xFFE6E8EB),
-            focusedTextColor = Color(0xFF1A1B22),
-            unfocusedTextColor = Color(0xFF1A1B22),
-            cursorColor = Color(0xFF1A1B22),
-            focusedContainerColor = Color(0xFFE6E8EB),
-            unfocusedContainerColor = Color(0xFFE6E8EB),
-            focusedLeadingIconColor = Color(0xFFAEAFB4),
-            unfocusedLeadingIconColor = Color(0xFFAEAFB4),
-            focusedTrailingIconColor = Color(0xFFAEAFB4),
-            unfocusedTrailingIconColor = Color(0xFFAEAFB4)
+            focusedBorderColor = SurfaceGray,
+            unfocusedBorderColor = SurfaceGray,
+            focusedTextColor = TextBlack,
+            unfocusedTextColor = TextBlack,
+            cursorColor = TextBlack,
+            focusedContainerColor = SurfaceGray,
+            unfocusedContainerColor = SurfaceGray,
+            focusedLeadingIconColor = TextGray,
+            unfocusedLeadingIconColor = TextGray,
+            focusedTrailingIconColor = TextGray,
+            unfocusedTrailingIconColor = TextGray
         ),
         textStyle = TextStyle(
             fontSize = 16.sp,
-            color = Color(0xFF1A1B22)
+            color = TextBlack
         ),
         singleLine = true
     )

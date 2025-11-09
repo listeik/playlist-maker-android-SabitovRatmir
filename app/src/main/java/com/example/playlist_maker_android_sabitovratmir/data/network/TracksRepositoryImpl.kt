@@ -3,6 +3,7 @@ package com.example.playlist_maker_android_sabitovratmir.data.network
 import com.example.playlist_maker_android_sabitovratmir.data.dto.TracksSearchRequest
 import com.example.playlist_maker_android_sabitovratmir.data.dto.TracksSearchResponse
 import com.example.playlist_maker_android_sabitovratmir.domain.NetworkClient
+import com.example.playlist_maker_android_sabitovratmir.domain.Track
 import com.example.playlist_maker_android_sabitovratmir.domain.TracksRepository
 import kotlinx.coroutines.delay
 
@@ -16,7 +17,8 @@ class TracksRepositoryImpl(private val networkClient: NetworkClient) : TracksRep
                 val seconds = it.trackTimeMillis / 1000
                 val minutes = seconds / 60
                 val trackTime = "%02d".format(minutes) + ":" + "%02d".format(seconds - minutes * 60)
-                Track(it.trackName, it.artistName, trackTime) }
+                Track(it.trackName, it.artistName, trackTime)
+            }
         } else {
             emptyList()
         }

@@ -36,6 +36,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.playlist_maker_android_sabitovratmir.R
 import com.example.playlist_maker_android_sabitovratmir.ui.theme.PlaylistmakerandroidSabitovRatmirTheme
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.PrimaryBlue
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.TextBlack
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.TextGray
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,14 +59,14 @@ fun MainScreen(onSearchClick: () -> Unit = {},
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF3772E7))
+            .background(PrimaryBlue)
     ) {
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(70.dp)
-                .background(Color(0xFF3772E7)),
+                .background(PrimaryBlue),
             contentAlignment = Alignment.CenterStart
         ) {
             Text(
@@ -152,7 +155,7 @@ fun MenuCard(
                 painter = painterResource(id = iconRes),
                 contentDescription = text,
                 modifier = Modifier.size(19.dp),
-                tint = Color(0xFF1A1B22)
+                tint = TextBlack
             )
 
             Spacer(modifier = Modifier.width(16.dp))
@@ -160,7 +163,7 @@ fun MenuCard(
 
             Text(
                 text = text,
-                color = Color(0xFF1A1B22),
+                color = TextBlack,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.weight(1f)
@@ -169,9 +172,9 @@ fun MenuCard(
 
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = "Перейти",
+                contentDescription = stringResource(R.string.navigate_icon_description),
                 modifier = Modifier.size(24.dp),
-                tint = Color(0xFFAEAFB4)
+                tint = TextGray
             )
         }
     }

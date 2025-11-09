@@ -2,7 +2,7 @@ package com.example.playlist_maker_android_sabitovratmir.ui.view_model
 
 import com.example.playlist_maker_android_sabitovratmir.creator.Storage
 import com.example.playlist_maker_android_sabitovratmir.data.network.RetrofitNetworkClient
-import com.example.playlist_maker_android_sabitovratmir.data.network.Track
+import com.example.playlist_maker_android_sabitovratmir.domain.Track
 import com.example.playlist_maker_android_sabitovratmir.data.network.TracksRepositoryImpl
 import com.example.playlist_maker_android_sabitovratmir.domain.TracksRepository
 

@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.playlist_maker_android_sabitovratmir.R
-import com.example.playlist_maker_android_sabitovratmir.data.network.Track
+import com.example.playlist_maker_android_sabitovratmir.domain.Track
 import com.example.playlist_maker_android_sabitovratmir.domain.TracksRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,20 +28,23 @@ class SearchViewModel(
     private val tracksRepository: TracksRepository
 ) : ViewModel() {
     private val _searchScreenState = MutableStateFlow<SearchState>(SearchState.Initial)
-    val searchScreenState  = _searchScreenState.asStateFlow()
+    val searchScreenState = _searchScreenState.asStateFlow()
 
-    fun search(whatSearch: String){
+    fun search(whatSearch: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _searchScreenState.update { SearchState.Searching }
                 val list = tracksRepository.searchTracks(expression = whatSearch)
                 _searchScreenState.update { SearchState.Success(list = list) }
-            } catch (e: IOException){
+            } catch (e: IOException) {
                 _searchScreenState.update { SearchState.Fail(e.message.toString()) }
             }
         }
     }
 
+    fun clearSearch() {
+        _searchScreenState.update { SearchState.Initial }
+    }
 
     companion object {
         fun getViewModelFactory(): ViewModelProvider.Factory =
@@ -63,7 +66,7 @@ fun TrackListItem(track: Track) {
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_music),
-            contentDescription = "Трек ${track.trackName}"
+            contentDescription = "${R.string.track_image_description} ${track.trackName}"
         )
         Column(
             modifier = Modifier.weight(1f),
