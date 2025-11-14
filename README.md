@@ -3,6 +3,10 @@
 
 ### Список изменений
 
+#### Спринт 7 (v7.0)
+- Добавлена FloatingActionButton 
+- Реализован ModalBottomSheet с базовым содержимым
+ 
 #### Спринт 6 (v6.0)
 - Реализован SearchViewModel с StateFlow для управления состояниями поиска
 - Создан sealed class SearchState с состояниями: Initial, Searching, Success, Fail
