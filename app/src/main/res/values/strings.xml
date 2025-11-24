@@ -26,4 +26,9 @@
 
     <string name="track_image_description">Трек</string>
     <string name="navigate_icon_description">Перейти</string>
+
+    <string name="search_history_title">История поиска</string>
+    <string name="clear_history">Очистить</string>
+
+    <string name="history_icon_description">История поиска</string>
 </resources>

@@ -14,10 +14,10 @@ class TracksRepositoryImpl(private val networkClient: NetworkClient) : TracksRep
         delay(1000) // Эммулируем задержку ответа
         return if (response.resultCode == 200) { // успешный запрос
             (response as TracksSearchResponse).results.map {
-                val seconds = it.trackTimeMillis / 1000
+                val seconds = it.trackTime / 1000
                 val minutes = seconds / 60
                 val trackTime = "%02d".format(minutes) + ":" + "%02d".format(seconds - minutes * 60)
-                Track(it.trackName, it.artistName, trackTime)
+                Track(it.id,it.trackName, it.artistName, trackTime)
             }
         } else {
             emptyList()
