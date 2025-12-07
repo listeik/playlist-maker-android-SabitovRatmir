@@ -53,7 +53,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(onSearchClick: () -> Unit = {},
-               onSettingsClick: () -> Unit = {}) {
+               onSettingsClick: () -> Unit = {},
+               onPlaylistsClick: () -> Unit = {},
+               onFavoritesClick: () -> Unit = {}
+
+               ) {
     val context = LocalContext.current
 
     Column(
@@ -103,18 +107,14 @@ fun MainScreen(onSearchClick: () -> Unit = {},
                 MenuCard(
                     iconRes = R.drawable.playlist,
                     text = stringResource(R.string.playlist),
-                    onClick = {
-                        //пусто, так как в задании ведь не сказано создать класс
-                    }
+                    onClick = onPlaylistsClick
                 )
 
 
                 MenuCard(
                     iconRes = R.drawable.heart,
                     text = stringResource(R.string.favorites),
-                    onClick = {
-                        //пусто, так как в задании ведь не сказано создать класс
-                    }
+                    onClick = onFavoritesClick
                 )
                 MenuCard(
                     iconRes = R.drawable.settings,

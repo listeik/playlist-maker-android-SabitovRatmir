@@ -66,6 +66,10 @@ class Storage {
         )
     )
 
+    fun getTrackById(id: Long): TrackDto? {
+        return listTracks.firstOrNull { it.id == id }
+    }
+
     fun search(request: String): List<TrackDto> {
         val result = listTracks.filter {
             it.trackName.lowercase().contains(request.lowercase()) || it.artistName.lowercase().contains(request.lowercase())

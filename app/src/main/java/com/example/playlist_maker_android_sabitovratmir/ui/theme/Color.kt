@@ -17,4 +17,12 @@ val SurfaceGray = Color(0xFFE6E8EB)
 val SwitchTrackEnabled = Color(0xFF3772E7).copy(alpha = 0.48f)
 val SwitchTrackDisabled = Color(0xFFE6E8EB)
 val SwitchThumbEnabled = Color(0xFF3772E7)
+
+
+val SurfaceWhite = Color(0xFFFFFFFF)
+
+val TextSecondary = Color(0xFFAEAFB4)
 val SwitchThumbDisabled = Color(0xFFAEAFB4)
+
+val BackgroundGray = Color(0xFFE6E8EB)
+val DarkGrey = Color(0xFFB5B5B5)

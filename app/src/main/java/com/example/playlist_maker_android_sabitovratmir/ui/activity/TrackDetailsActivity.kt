@@ -1,92 +1,228 @@
 package com.example.playlist_maker_android_sabitovratmir.ui.activity
 
+
+
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.rounded.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.playlist_maker_android_sabitovratmir.R
-import com.example.playlist_maker_android_sabitovratmir.ui.theme.TextBlack
+import com.example.playlist_maker_android_sabitovratmir.creator.Storage
+import com.example.playlist_maker_android_sabitovratmir.domain.Playlist
+import kotlinx.coroutines.launch
 
+import com.example.playlist_maker_android_sabitovratmir.R
+import com.example.playlist_maker_android_sabitovratmir.ui.theme.SurfaceWhite
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrackDetailsScreen(
     trackId: Long,
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        // Хедер
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp)
-                .background(Color.White),
-            contentAlignment = Alignment.CenterStart
+    val storage = remember { Storage() }
+    val track = remember(trackId) { storage.getTrackById(trackId) }
+
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val scope = rememberCoroutineScope()
+    var isSheetOpen by remember { mutableStateOf(false) }
+
+    val playlists = emptyList<Playlist>()
+
+    if (isSheetOpen) {
+        ModalBottomSheet(
+            onDismissRequest = { isSheetOpen = false },
+            sheetState = sheetState
         ) {
-            IconButton(
-                onClick = onBackClick,
+            Column(
                 modifier = Modifier
-                    .padding(start = 16.dp)
-                    .size(24.dp)
+                    .padding(16.dp)
             ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                    contentDescription = stringResource(R.string.back_icon_description),
-                    tint = TextBlack
-                )
-            }
-
-            Text(
-                text = "Детали трека",
-                color = TextBlack,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
-
-        // Контент-заглушка
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
-                    text = "Детали трека #$trackId",
-                    color = TextBlack,
-                    fontSize = 18.sp,
-                    textAlign = TextAlign.Center
+                    text = stringResource(R.string.add_to_playlist),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
                 )
-                Text(
-                    text = "(в разработке)",
-                    color = TextBlack,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                playlists.forEach { playlist ->
+                    Text(
+                        text = playlist.name,
+                        fontSize = 18.sp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 12.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(SurfaceWhite)
+    ) {
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.48f)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_music),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+
+            IconButton(
+                onClick = onBackClick,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .size(27.dp)
+                    .align(Alignment.TopStart)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_back),
+                    contentDescription = stringResource(R.string.back),
+                    tint = Color.Black,
+                    modifier = Modifier.size(27.dp)
+                )
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(24.dp)
+        ) {
+            if (track != null) {
+                Text(
+                    text = track.trackName,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = track.artistName,
+                    fontSize = 16.sp,
+                    color = Color.Black
+                )
+
+                Spacer(modifier = Modifier.height(50.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    IconButton(
+                        onClick = {
+                            isSheetOpen = true
+                            scope.launch { sheetState.show() }
+                        },
+                        modifier = Modifier.size(56.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(56.dp)
+                                .clip(CircleShape)
+                                .background(Color.Gray),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_add_playlist),
+                                contentDescription = stringResource(R.string.add_to_playlist),
+                                tint = Color.White,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    }
+
+                    IconButton(
+                        onClick = {},
+                        modifier = Modifier.size(56.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(56.dp)
+                                .clip(CircleShape)
+                                .background(Color.Gray),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_favorite_outline),
+                                contentDescription = stringResource(R.string.add_to_favorites),
+                                tint = Color.White,
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(35.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.duration),
+                        fontSize = 16.sp,
+                        color = Color.DarkGray
+                    )
+
+                    Text(
+                        text = formatTrackDuration(track.trackTime.toLong()),
+                        fontSize = 16.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+
+            } else {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(stringResource(R.string.track_not_found), color = Color.Black)
+                }
+            }
+        }
+    }
+}
+
+private fun formatTrackDuration(milliseconds: Long): String {
+    val totalSeconds = milliseconds / 1000
+    val minutes = totalSeconds / 60
+    val seconds = totalSeconds % 60
+    return String.format("%d:%02d", minutes, seconds)
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun TrackDetailsScreenPreview() {
+    TrackDetailsScreen(
+        trackId = 1,
+        onBackClick = {}
+    )
 }

@@ -31,4 +31,37 @@
     <string name="clear_history">Очистить</string>
 
     <string name="history_icon_description">История поиска</string>
+
+    <string name="playlists_empty">Плейлисты отсутствуют</string>
+    <string name="create_playlist_title">Новый плейлист</string>
+    <string name="playlist_name_required">Название*</string>
+    <string name="playlist_description_hint">Описание</string>
+    <string name="create">Создать</string>
+    <string name="cd_create_playlist">Создать новый плейлист</string>
+    <string name="cd_add_photo">Добавить фото плейлиста</string>
+
+    <string name="cd_back">Назад</string>
+    <string name="cd_search">Поиск</string>
+    <string name="cd_clear">Очистить</string>
+    <string name="cd_arrow">Стрелка</string>
+    <string name="cd_music">Трек %s</string>
+    <string name="cd_navigate">Перейти</string>
+    <string name="cd_share">Поделиться</string>
+    <string name="cd_support">Поддержка</string>
+
+    <string name="track_not_found">Трек не найден</string>
+    <string name="add_to_playlist">Добавить в плейлист</string>
+    <string name="add_to_favorites">Добавить в избранное</string>
+    <string name="playlist_title">Добавить в плейлист</string>
+    <string name="duration">Длительность</string>
+
+    <string name="offer_link">https://yandex.ru/legal/practicum_offer/</string>
+
+
+    <string name="back">Назад</string>
+
+    <string name="favorites_title">Избранное</string>
+    <string name="favorites_empty">Здесь будут ваши избранные треки</string>
+
+
 </resources>
